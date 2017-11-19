@@ -11,32 +11,33 @@ $(document).ready(() => {
 
     const home_page = `
                 <div class="play_area container">
-                <button class="btn btn-success add" data-toggle="modal" data-target="#myModal">Add Student detail</button>
-                <button class="btn btn-danger mul_del" style="float:right;">Delete Selected</button>
+                    <button class="btn btn-success add" data-toggle="modal" data-target="#myModal">Add Student detail</button>
+                    <button class="btn btn-danger mul_del" style="float:right;">Delete Selected</button>
 
 
-                <div class="student_list table-responsive">
+                    <div class="student_list table-responsive">
                         <table class="table table-hover put">
                             
                         </table>
-                </div>
+                    </div>
 
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-  
-      <!-- Modal content-->
-      <div class="modal-content">
-        
-      </div>
-  
-    </div>
-  </div></div>`;
+                <!-- Modal -->
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                      
+                              <!-- Modal content-->
+                            <div class="modal-content">
+                                
+                            </div>
+                  
+                        </div>
+                    </div>
+                </div>`;
 
     const cross = '<span class="glyphicon glyphicon-remove"></span>';
     const edit = '<span class="glyphicon glyphicon-pencil"></span>';
 
-    $(document).on('click','.start',function(){
+    $(document).on('click','.start',() => {
         $('body').css({
             'background-image':'url(http://www.bufferts.com/wp-content/uploads/2013/10/education1.png)'
         })
@@ -72,7 +73,7 @@ $(document).ready(() => {
     }
 
     function put_data(){
-        var final = `<tr>
+        let final = `<tr>
         <th>Roll No</th>
         <th>Name</th>
         <th>Passout Year</th>
@@ -132,7 +133,7 @@ $(document).ready(() => {
                 <div class="checkbox">
                     <label><input id="confirm" type="checkbox"> Confirm</label>
                 </div>
-                <button type="button" class="btn btn-default submit" data-dismiss="modal">Submit</button>
+                <button type="button" class="btn btn-default submit">Submit</button>
             </form> 
       </div>
       <div class="modal-footer">
@@ -140,6 +141,37 @@ $(document).ready(() => {
       </div>`
 
       return text;
+    }
+
+    function submit(){
+        if (document.getElementById("confirm").checked){
+                roll = $('#roll').val();
+                name = $("#name").val();
+                str = $('#stream').val();
+                pass = $('#pass').val();
+
+                if(/^\d+$/.test($('#roll').val()) == true && $("#name").val()!="" && $("#roll").val()!="" && $("#stream").val()!="" && $("#pass").val()!="" && /^\d+$/.test($('#pass').val()) == true ){
+                  
+                    updated  = new student(roll,name,pass,stream);
+                    data[id] = updated;
+                    put_data();
+                    
+                    $('.modal').modal('toggle');
+                }
+                else{
+                    if($("#name").val()=="" || $("#roll").val()=="" || $("#stream").val()=="" || $("#pass").val()=="")
+                        alert("ALL Fields Required");
+                    else if(/^\d+$/.test($('#pass').val()) == false)
+                        alert("Passing Year should be a real number");
+                    else if(/^\d+$/.test($('#roll').val()) == false)
+                        alert("Roll should be a real number");
+                    }
+
+                put_data()
+            }
+            else{
+                alert("Please Confirm the Update");
+            }
     }
 
     $(document).on("click", ".edit-button", function() {
@@ -152,31 +184,7 @@ $(document).ready(() => {
 
         const check = document.getElementById("confirm").checked;
         $('.submit').click(() => {
-            if (document.getElementById("confirm").checked){
-                roll = $('#roll').val();
-                name = $("#name").val();
-                str = $('#stream').val();
-                pass = $('#pass').val();
-
-                if((roll != "") &&  !(isNaN(roll)) && roll>0 ){
-                    if( (pass != "") && !(isNaN(pass)) && pass > 0)
-                    {
-                        updated  = new student(roll,name,pass,stream);
-                        data[id] = updated;
-                    }
-                }
-
-                // updated  = new student(roll,name,pass,stream);
-
-                // data[id] = updated;
-                // console.log(data[id]);
-
-
-                put_data()
-            }
-            else{
-                alert("Please Confirm the Update");
-            }
+            submit()
         })
     })
 
@@ -215,32 +223,17 @@ $(document).ready(() => {
         $(this).html(`<button class="btn btn-default">${edit}</button>`);
     });
 
-    $(".add").click(() => {
+    $(document).on('click','.add',() => {
         blank = new student("","","","");
-        text = make_model(blank);
+        text = make_model(blank);c=
         $('.modal-content').html(text);
 
         $('.submit').click(() => {
-            if (document.getElementById("confirm").checked){
-                roll = $('#roll').val();
-                name = $("#name").val();
-                str = $('#stream').val();
-                pass = $('#pass').val();
-
-                new_data = new student(roll,name,pass,str);
-                data.push(new_data);
-                // console.log(data);
-
-
-                put_data()
-            }
-            else{
-                alert("Please Confirm the Update");
-            }
+            submit();
         })
-    });
+    })
 
-    $(document).on('click','.mul_del',function(){
+    $(document).on('click','.mul_del',() => {
         check = document.getElementsByClassName('checkit');
 
         for(let i=0;i<check.length;i++){
@@ -250,6 +243,12 @@ $(document).ready(() => {
             }
         }
         put_data();
+    })
+
+    $(document).on('click','input',() => {
+        $('input').css({
+            'border':'white'
+        })
     })
 
 });

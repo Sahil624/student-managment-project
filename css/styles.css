@@ -6,6 +6,10 @@ body{
     font-family: 'Ubuntu', sans-serif;
 }
 
+.student_list{
+    margin-top: 30px;
+}
+
 .edit-button{
     width: 100px;
     height: 50px;
@@ -48,6 +52,7 @@ input[type="checkbox"] {
 th{
     font-size: 2em;
 }
+
 
 @keyframes flyin{
    from{ 
