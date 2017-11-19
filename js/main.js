@@ -9,9 +9,40 @@ function getStudentDetails() {
 
 $(document).ready(() => {
 
+    const home_page = `
+                <div class="play_area container">
+                <button class="btn btn-success add" data-toggle="modal" data-target="#myModal">Add Student detail</button>
+                <button class="btn btn-danger mul_del" style="float:right;">Delete Selected</button>
+
+
+                <div class="student_list table-responsive">
+                        <table class="table table-hover put">
+                            
+                        </table>
+                </div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        
+      </div>
+  
+    </div>
+  </div></div>`;
 
     const cross = '<span class="glyphicon glyphicon-remove"></span>';
     const edit = '<span class="glyphicon glyphicon-pencil"></span>';
+
+    $(document).on('click','.start',function(){
+        $('body').css({
+            'background-image':'url(http://www.bufferts.com/wp-content/uploads/2013/10/education1.png)'
+        })
+        $('.main_area').html(home_page);
+        put_data();
+    })
 
     function student(roll,name,pass,stream)
     {
@@ -36,7 +67,7 @@ $(document).ready(() => {
             out.push(new student(roll_no,name,pass,stream));
             //console.log(out)
         }
-        console.log(out);
+        // console.log(out);
         return out;
     }
 
@@ -48,7 +79,7 @@ $(document).ready(() => {
         <th>Stream</th>
         <th> </th>
     </tr>`;
-        console.log('putting',data);
+        // console.log('putting',data);
         // $('.put').text('');
         for(let i=0;i<data.length;i++)
         {
@@ -75,7 +106,7 @@ $(document).ready(() => {
     
 
     function make_model(data){
-        console.log(data)
+        // console.log(data)
         let text = `<div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Edit Details of ${data.name}</h4>
@@ -88,7 +119,7 @@ $(document).ready(() => {
                 </div>
                 <div class="form-group">
                     <label for="name">Name:</label>
-                    <input type="name" class="form-control" id="name" value=${data.name}>
+                    <input type="name" class="form-control" type="text" id="name" value=${data.name}>
                 </div>
                 <div class="form-group">
                     <label for="stream">Stream:</label>
@@ -113,10 +144,11 @@ $(document).ready(() => {
 
     $(document).on("click", ".edit-button", function() {
         id = $(this).attr('id');
+        // console.log("ID",id);
         text = make_model(data[id]);
         $('.modal-content').html(text);
 
-        
+    
 
         const check = document.getElementById("confirm").checked;
         $('.submit').click(() => {
@@ -126,10 +158,18 @@ $(document).ready(() => {
                 str = $('#stream').val();
                 pass = $('#pass').val();
 
-                updated  = new student(roll,name,pass,stream);
+                if((roll != "") &&  !(isNaN(roll)) && roll>0 ){
+                    if( (pass != "") && !(isNaN(pass)) && pass > 0)
+                    {
+                        updated  = new student(roll,name,pass,stream);
+                        data[id] = updated;
+                    }
+                }
 
-                data[id] = updated;
-                console.log(data[id]);
+                // updated  = new student(roll,name,pass,stream);
+
+                // data[id] = updated;
+                // console.log(data[id]);
 
 
                 put_data()
@@ -140,20 +180,27 @@ $(document).ready(() => {
         })
     })
 
+    $(document).on('click','.del_this',function(){
+        id = $(this).parent().attr('id');
+        // console.log(this,id);
+        data.splice(id,1);
+        put_data()
+    })
 
     $(document).on("mouseenter", ".edit-button", function() {
-        $(this).width(`${100}px`);
+       
+        $(".edit-button").width(`60px`);
+        $(".edit-button").css({
+            'margin':20
+        });
+        $(".edit-button").html(`<button class="btn btn-default">${edit}</button>`);
+
+        $(this).width(`${90}px`);
         $(this).css({
             'margin':20
         })
         $(this).html(`<button class="btn btn-warning" id="edit" data-toggle="modal" data-target="#myModal">${edit}</button>
-        <button class="btn btn-danger delete_stu">${cross}</button>`);
-        $('.delete_stu').click(function(){
-            row_to_delete = $(this).parent().parent().parent();
-            data.splice(row_to_delete,1);
-            console.log(row_to_delete);
-            row_to_delete.remove();
-        })
+        <button class="btn btn-danger del_this">${cross}</button>`);
         $(this).children().css({
             'padding':10,
             'margin-right':10
@@ -182,7 +229,7 @@ $(document).ready(() => {
 
                 new_data = new student(roll,name,pass,str);
                 data.push(new_data);
-                console.log(data);
+                // console.log(data);
 
 
                 put_data()
@@ -193,19 +240,12 @@ $(document).ready(() => {
         })
     });
 
-    function del(arr){
-        console.log("delete",arr);
-        for(let i=0;i<arr.length;i++){
-            
-        }
-    }
-
     $(document).on('click','.mul_del',function(){
         check = document.getElementsByClassName('checkit');
 
         for(let i=0;i<check.length;i++){
             if(check[i].checked == true){
-                console.log($(check[i]).attr('id'),i);
+                // console.log(check[i],i);
                 data.splice(check[i],1);
             }
         }
