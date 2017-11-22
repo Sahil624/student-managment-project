@@ -2,6 +2,17 @@ const batch = "UCA2018";
 let batch2 = "UCA2019";
 
 function getStudentDetails() {
+    
+    // document.getElementById("username").innerHTML = batch;
+}
+
+["a", "b"].map(name => `${name}!`);
+
+$(document).ready(() => {
+
+    
+    setTimeout(function(){ 
+
     console.log("Called");
     const index = `
         <div class="container">
@@ -24,22 +35,13 @@ function getStudentDetails() {
 
     $('body').html(index);
     $('body').css({
-        "background":'transparent',
-        'background': 'url(https://www.timeshighereducation.com/sites/default/files/students_globe.jpg) no-repeat',
-         'background-color': '#333',
+        // "background":'transparent',
+        // 'background': 'url(https://www.timeshighereducation.com/sites/default/files/students_globe.jpg) no-repeat',
         'background-position': 'top',
-        'background-size': 'cover'
+        'background-size': 'auto 100vh',
+        'font-family': "'Ubuntu', sans-serif"
 
-    })
-    // document.getElementById("username").innerHTML = batch;
-}
-
-["a", "b"].map(name => `${name}!`);
-
-$(document).ready(() => {
-
-    
-
+    }) }, 3000);
 
     const home_page = `
                 <div class="play_area container">
