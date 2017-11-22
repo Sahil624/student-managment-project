@@ -2,12 +2,41 @@ const batch = "UCA2018";
 let batch2 = "UCA2019";
 
 function getStudentDetails() {
-    document.getElementById("username").innerHTML = batch;
+    console.log("Called");
+    const index = `
+        <div class="container">
+            <h1>Welcome to student details management portal</h1>
+            <span>
+                    <p>The web site show information about the details of students for <span id="username">UCA2018</span></p>
+                </span>
+            <div class="main_area">
+                <!-- <button class="btn btn-primary start">Continue to Portal</button> -->
+                <div class="header text-center">
+                    <h1>Using This Student Managment portal you can View,Add,Delete and edit details of students of your class</h1>
+                     <button class="btn btn-primary start">Go To Portal</button>
+                </div>
+
+
+            </div>
+    </div>
+    `
+
+
+    $('body').html(index);
+    $('body').css({
+        "background":'transparent',
+        'background': 'url(https://www.timeshighereducation.com/sites/default/files/students_globe.jpg) no-repeat'
+
+    })
+    // document.getElementById("username").innerHTML = batch;
 }
 
 ["a", "b"].map(name => `${name}!`);
 
 $(document).ready(() => {
+
+    
+
 
     const home_page = `
                 <div class="play_area container">
