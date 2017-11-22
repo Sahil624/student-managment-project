@@ -25,7 +25,10 @@ function getStudentDetails() {
     $('body').html(index);
     $('body').css({
         "background":'transparent',
-        'background': 'url(https://www.timeshighereducation.com/sites/default/files/students_globe.jpg) no-repeat'
+        'background': 'url(https://www.timeshighereducation.com/sites/default/files/students_globe.jpg) no-repeat',
+         'background-color': '#333',
+        'background-position': 'top',
+        'background-size': 'cover'
 
     })
     // document.getElementById("username").innerHTML = batch;
