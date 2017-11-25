@@ -37,8 +37,8 @@ $(document).ready(() => {
     $('body').css({
         // "background":'transparent',
         // 'background': 'url(https://www.timeshighereducation.com/sites/default/files/students_globe.jpg) no-repeat',
-        'background-position': 'top',
-        'background-size': 'auto 100vh',
+        // 'background-position': 'top',
+        // 'background-size': 'auto 100vh',
         'font-family': "'Ubuntu', sans-serif"
 
     }) }, 3000);
@@ -73,7 +73,7 @@ $(document).ready(() => {
 
     $(document).on('click','.start',() => {
         $('body').css({
-            'background-image':'url(http://www.bufferts.com/wp-content/uploads/2013/10/education1.png)'
+            // 'background-image':'url(http://www.bufferts.com/wp-content/uploads/2013/10/education1.png)'
         })
         $('.main_area').html(home_page);
         put_data();
